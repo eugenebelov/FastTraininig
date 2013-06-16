@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx" 
+				   width="655" height="582"
+				   x="70" y="9"
+				   backgroundImage="@Embed(source='assets/panelSettingsBg.png')"
+				   borderVisible="false">
+	
+	<fx:Script>
+		<![CDATA[			
+			import model.TrainingData;
+			private var model_c:TrainingData;
+			
+			protected function startWorkingClick(event:MouseEvent):void
+			{
+				dispatchEvent(new MouseEvent("showTimer"));
+			}
+			
+			public function set model_p(value_p:TrainingData):void
+			{
+				model_c = value_p;
+			}
+			
+			public function clear():void
+			{
+				cycleInText.text = "";
+				exersicesInText.text = "";
+				execTimeInText.text = "";
+				restTimeInText.text = "";
+			}
+			
+			protected function restFieldKeyUp(event:KeyboardEvent):void
+			{
+				execTimeInText.text = String( model_c.calculateWorkoutTime(int(restTimeInText.text)) );
+			}
+			
+			
+			protected function enterDataKeyUp(event:KeyboardEvent):void
+			{
+				var userText:String = event.currentTarget.text;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Metadata>
+		[Event(name="showTimer", type="flash.events.MouseEvent")]
+	</fx:Metadata>
+	
+	<s:Image x="36" y="294" source="assets/shadowSettings.png"/>
+	
+	<s:BorderContainer width="500" height="383" 
+					   x="80" y="35"
+					   styleName="background"
+					   backgroundImage="@Embed(source='assets/bgSettings.png')"
+					   borderVisible="false">
+		
+		
+			<s:Group x="36" y="132">
+				<s:Group x="14" y="0">
+					<s:RichText text="УПРАЖНЕНИЯ" 
+								styleName="h2"
+								x="37"/>
+					
+					<s:TextInput id="exersicesInText" x="215" width="139" height="55"
+								 keyUp="enterDataKeyUp(event)" maxChars="2" restrict="0-9"
+								 text="10"
+								 styleName="exercises"/>
+				</s:Group>
+				
+				<s:Group x="14" y="75">
+					<s:RichText text="ЦИКЛЫ" 
+								styleName="h2"
+								x="106"/>
+					
+					<s:TextInput id="cycleInText" x="215" width="139" height="55"
+								 keyUp="enterDataKeyUp(event)" maxChars="2" restrict="0-9"
+								 text="10"
+								 styleName="exercises"/>
+				</s:Group>
+				
+				
+				<s:Group x="0" y="172">
+					<s:RichText text="отдыхаем" 
+								styleName="h3" />
+					
+					<s:TextInput id="restTimeInText" x="113" width="87" height="55"
+								 keyUp="restFieldKeyUp(event)" maxChars="2" restrict="0-9"
+								 text="0"
+								 styleName="seconds"/>
+				</s:Group>
+				
+				<s:Group x="254" y="172">
+					<s:RichText text="работаем" 
+								styleName="h3"/>
+					
+					<s:TextInput id="execTimeInText" x="90" width="100" height="55"
+								 borderVisible="false" editable="false" maxChars="2"
+								 text="0"
+								 styleName="seconds"/>
+				</s:Group>
+			</s:Group>
+		
+	</s:BorderContainer>
+	
+	<s:RichText text="QUICK TRAINER" 
+				styleName="header"
+				x="218" y="55">
+		<s:filters>
+			<s:GlowFilter color="0xFFFFFF" blurX="2" blurY="2" strength="5" quality="3" />
+			<s:DropShadowFilter alpha=".49" blurY="5" blurX="5" distance="1" angle="90"/>
+		</s:filters>
+	</s:RichText>
+	
+	<s:HGroup x="0" y="480" width="100%" horizontalAlign="center" verticalAlign="bottom">
+		<s:Button click="startWorkingClick(event)"
+				  skinClass="skins.goButtonSkin"
+				  width="78" height="81"/>
+	</s:HGroup>
+	
+</s:BorderContainer>

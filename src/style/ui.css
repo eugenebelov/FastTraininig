@@ -1,0 +1,103 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace views "view.*";
+
+@font-face 
+{
+	src: url("/fonts/FUTURA_0.ttf");
+	fontFamily: NonEditableText;
+	fontStyle: normal;
+	fontWeight: normal;
+	embedAsCFF: true;
+	advancedAntiAliasing: true;
+}
+
+@font-face 
+{
+	src: url("/fonts/PTN57F.ttf");
+	fontFamily: EditableText;
+	fontStyle: normal;
+	fontWeight: normal;
+	embedAsCFF: true;
+	advancedAntiAliasing: true;
+}
+
+s|TextInput
+{
+	fontFamily: NonEditableText;
+	fontLookup: embeddedCFF;
+	textAlign:center;
+	contentBackgroundColor:#f5f5f5;
+	borderColor:#ABABAB;
+	focusSkin:ClassReference("skins.TextFieldFocusSkin");
+}
+
+s|TextInput.seconds
+{
+	skinClass:ClassReference("skins.TFInputSkinSeconds");
+	fontSize:36pt;
+}
+
+s|TextInput.exercises
+{
+	skinClass:ClassReference("skins.TFInputSkinExec");
+	fontSize: 45pt;
+}
+
+s|RichText
+{
+	fontFamily: EditableText;
+	fontLookup: embeddedCFF;
+}
+
+.h2
+{
+	fontSize:30pt;
+	paddingTop:17;
+}
+
+.h3
+{
+	fontSize:26pt;
+	paddingTop:23;
+}
+
+.appendSeconds
+{
+	fontSize:18pt;
+}
+
+.header
+{
+	fontFamily: NonEditableText;
+	color: #6aa14c;
+	fontLookup: embeddedCFF;
+	fontSize:48pt;
+}
+
+views|Settings .background
+{
+	paddingTop:50;
+}
+
+views|ShowTimer
+{
+	backgroundAlpha:0;
+	borderVisible: false;
+}
+
+.timerText
+{
+	fontFamily: NonEditableText;
+	fontSize: 172pt;
+	color: #DB4D1B;
+	textAlign: center;
+}
+
+.statusText
+{
+	fontFamily: EditableText;
+	fontSize: 72pt;
+	color: #464646;
+}

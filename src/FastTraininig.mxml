@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:view="view.*"
+					   creationComplete="init(event)"
+					   width="800" height="625">
+	
+	<fx:Style source="style/ui.css" />
+	
+	<fx:Script>
+		<![CDATA[
+			import controller.TrainingControl;
+			import controller.TrainingEvent;
+			
+			import model.TrainingData;
+			
+			import mx.binding.utils.BindingUtils;
+			import mx.binding.utils.ChangeWatcher;
+			import mx.events.FlexEvent;
+			
+			[Bindable] protected var model_c:TrainingData;
+			protected var controller_c:TrainingControl;
+			
+			public static const SETTINGS:String = "settings";
+			public static const TIMER:String = "timer";
+						
+			protected function startMyWorkoutClick(event:MouseEvent):void
+			{
+				model_c.exersices = parseInt(user.exersicesInText.text); 
+				model_c.cycles = parseInt(user.cycleInText.text);
+				model_c.exersiceTime = parseInt(user.execTimeInText.text); 
+				model_c.restTime = parseInt(user.restTimeInText.text);
+				
+				controller_c.model = model_c;
+				
+				controller_c.startTraining();
+				
+				controller_c.addEventListener(TrainingEvent.UPDATE, updateViews);
+				
+				currentState = TIMER;
+				
+			}
+			
+			protected function showSettings(event:Event):void
+			{
+				model_c = null;
+				controller_c.dispose();
+				controller_c = null;
+				
+				user.clear();
+				
+				currentState = SETTINGS;
+			}
+			
+			protected function updateViews(event_p:TrainingEvent):void
+			{
+				action.update(event_p.dto);
+			}
+			
+			 
+			protected function init(event:FlexEvent):void
+			{
+				controller_c = new TrainingControl();
+				model_c = new TrainingData();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="settings" />
+		<s:State name="timer" />
+	</s:states>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+	<!--<s:Image source="assets/Training_mockup.png" />-->
+	
+	<s:Image source="assets/appBg.png"/>
+	
+	<view:Settings id="user" 
+				   showTimer="startMyWorkoutClick(event)"
+				   visible.settings="true"
+				   visible.timer="false"
+				   model_p="{model_c}"/>
+	
+	<view:ShowTimer id="action"
+					showSettings="showSettings(event)"
+					visible.settings="false"
+					visible.timer="true"/>
+	
+</s:WindowedApplication>

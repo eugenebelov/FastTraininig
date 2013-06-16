@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx" 
+				   width="655" height="582"
+				   x="70" y="9"
+				   styleName="background">
+	
+	<fx:Script>
+		<![CDATA[
+			import controller.TrainingControl;
+			public var controllerAsParameter:TrainingControl;
+			
+			import model.TrainDTO;
+			
+			protected function restartClick(event:MouseEvent):void
+			{
+				dispatchEvent(new Event("showSettings"));
+			}
+			
+			public function update(params_p:TrainDTO):void
+			{
+				timeText.text = params_p.currentTime.toString();
+				
+				statusText.text = ( params_p.currentStatus == TrainingControl.WORK) ? "Workout" : "You can rest";
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Metadata>
+		[Event(name="showSettings", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<s:HGroup x="0" y="123" width="100%" 
+			  horizontalAlign="center" 
+			  verticalAlign="bottom">
+		<s:RichText id="statusText"
+					text="....." 
+					styleName="statusText"
+					textAlign="center"/>
+		
+	</s:HGroup>
+		
+	<s:HGroup x="0" y="230" width="100%" 
+				horizontalAlign="center" 
+				verticalAlign="middle">
+		<s:Group>
+			<s:RichText width="190"
+						styleName="timerText" 
+						text="" 
+						id="timeText"/>
+			<s:Image source="assets/timerShadow.png" 
+					 y="170" />
+		</s:Group>		
+	</s:HGroup>
+		
+	
+	<s:HGroup x="0" y="460" width="100%" 
+			  horizontalAlign="center" 
+			  verticalAlign="bottom">
+		<s:Button skinClass="skins.restartButtonSkin"
+				  click="restartClick(event)"/>
+	</s:HGroup>
+	
+	
+	
+</s:BorderContainer>
